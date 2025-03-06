@@ -8,10 +8,13 @@ import invoke
 from django_invoke import (
     _config,
     printer,
-    docker
+    docker,
+    django,
+    python,
 )
 
 from django_invoke._config import (
     Config,
     DockerSettings,
+    DjangoSettings,
 )
