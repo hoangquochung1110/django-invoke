@@ -42,3 +42,60 @@ def run(context):
     config = _config.Config.from_context(context)
     printer.success("Running web app")
     manage(context, config.django.runserver_command)
+
+
+@invoke.task(
+    optional=['app_label', 'migration_name'],
+)
+def migrate(context, app_label=None, migration_name=None):
+    """Apply migrations. Can be used to revert a migration."""
+    config = _config.Config.from_context(context)
+    printer.success("Running migrations")
+    if app_label and migration_name:
+        command = f"{config.django.migrate_command} {app_label} {migration_name}"
+    elif app_label:
+        command = f"{config.django.migrate_command} {app_label}"
+    else:
+        command = config.django.migrate_command
+    manage(
+        context,
+        command,
+    )
+
+
+@invoke.task
+def makemigrations(context):
+    """Run makemigrations command and chown created migrations."""
+    printer.success("Making migrations")
+    manage(context, command="makemigrations")
+
+
+@invoke.task
+def check_new_migrations(context: invoke.Context) -> None:
+    """Check if there is new migrations or not."""
+    printer.success("Django: Checking migrations")
+    manage(
+        context,
+        command="makemigrations --check --dry-run",
+    )
+
+@invoke.task
+def resetdb(
+    context,
+    apply_migrations: bool = True,
+) -> None:
+    """Reset database to initial state (including test DB).
+
+    Requires django-extensions:
+        https://django-extensions.readthedocs.io/en/latest/installation_instructions.html
+
+    """
+    printing.success("Reset database to its initial state")
+    manage(context, command="drop_test_database --noinput")
+    manage(context, command="reset_db -c --noinput")
+    if not apply_migrations:
+        return
+    makemigrations(context)
+    migrate(context)
+    createsuperuser(context)
+    set_default_site(context)
