@@ -1,7 +1,7 @@
 [project]
 name = "django-invoke"
-version = "0.0.1"
-description = "Add your description here"
+version = "0.0.2"
+description = "Collection of frequently used tasks for Django development"
 readme = "README.md"
 authors = [
     { name = "hoangquochung1110", email = "arsenalforeversince2007@gmail.com" }
@@ -11,6 +11,11 @@ dependencies = [
     "invoke>=2.2.0",
     "rich>=13.9.4",
 ]
+license = "MIT AND (Apache-2.0 OR BSD-2-Clause)"
+
+[project.urls]
+Repository = "https://github.com/hoangquochung1110/django-invoke"
+
 
 [build-system]
 requires = ["setuptools"]
