@@ -33,7 +33,7 @@ class DjangoSettings:
     shell_command: str = "shell_plus --ipython"
     path_to_remote_config_file: str = "/workspace/app/config/settings/.env"
     manage_file_path: str = "./manage.py"
-    settings_path: str = "project4.local"
+    settings_path: str = "settings.local"
 
 
 @dataclasses.dataclass(frozen=True)
