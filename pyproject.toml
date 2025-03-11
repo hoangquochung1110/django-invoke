@@ -1,6 +1,6 @@
 [project]
 name = "django-invoke"
-version = "0.0.1"
+version = "0.0.0.dev2"
 description = "Collection of frequently used tasks for Django development"
 readme = "README.md"
 authors = [
