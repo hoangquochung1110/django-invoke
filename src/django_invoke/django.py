@@ -99,3 +99,32 @@ def resetdb(
     migrate(context)
     createsuperuser(context)
     set_default_site(context)
+
+
+@invoke.task
+def shell(
+    context: invoke.Context,
+    params: str = "",
+) -> None:
+    """Shortcut for manage.py shell command.
+
+    Requires django-extensions:
+        https://django-extensions.readthedocs.io/en/latest/installation_instructions.html
+
+    Additional params available here:
+        https://django-extensions.readthedocs.io/en/latest/shell_plus.html
+
+    """
+    printer.success("Entering Django Shell")
+    config = _config.Config.from_context(context)
+    manage(
+        context,
+        command=f"{config.django.shell_command} {params}",
+    )
+
+
+@invoke.task
+def dbshell(context: invoke.Context) -> None:
+    """Open database shell with credentials from either local or dev env."""
+    printer.success("Entering DB shell")
+    manage(context, command="dbshell")
