@@ -1,6 +1,6 @@
 [project]
 name = "django-invoke"
-version = "0.0.2"
+version = "0.0.1"
 description = "Collection of frequently used tasks for Django development"
 readme = "README.md"
 authors = [
@@ -11,9 +11,10 @@ dependencies = [
     "invoke>=2.2.0",
     "rich>=13.9.4",
 ]
-license = "MIT AND (Apache-2.0 OR BSD-2-Clause)"
 
 [project.urls]
+Homepage = "https://github.com/hoangquochung1110/django-invoke"
+Documentation = "https://github.com/hoangquochung1110/django-invoke"
 Repository = "https://github.com/hoangquochung1110/django-invoke"
 
 
